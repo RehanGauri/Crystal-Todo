@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Crystal Todo</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <div class="main-todo box">
+      <h2>📋 Your Todo List</h2>
+      <form action="/api/todos" method="POST" class="todo-form">
+        <input type="text" name="title" placeholder="Add a new task..." required />
+        <button type="submit">Add</button>
+      </form>
+
+      <ul class="todo-list">
+        <% todos.forEach(todo => { %>
+          <li class="todo-item <%= todo.completed ? 'completed-task' : '' %>">
+            <form action="/api/todos/toggle/<%= todo._id %>" method="POST" class="checkbox-form">
+              <input type="checkbox" onchange="this.form.submit()" <%= todo.completed ? 'checked' : '' %> />
+            </form>
+
+            <form action="/api/todos/update/<%= todo._id %>" method="POST" class="edit-form">
+              <div class="input-date-wrapper">
+                <input type="text" name="title" value="<%= todo.title %>" />
+                <span class="task-date"
+                  title="<%- new Date(todo.createdAt).toLocaleString('en-IN', { dateStyle: 'full', timeStyle: 'short' }) %>">
+                  <%= new Date(todo.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) %>
+                </span>
+              </div>
+              <button type="submit">Update</button>
+            </form>
+
+            <form action="/api/todos/delete/<%= todo._id %>" method="POST" class="delete-form">
+              <button type="submit">Delete</button>
+            </form>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <div class="right-section">
+      <div class="box top-box">
+        <h3>🔥 Important</h3>
+        <form action="/api/important" method="POST" class="todo-form">
+          <input type="text" name="task" placeholder="Add important task..." required />
+          <button type="submit">Add</button>
+        </form>
+
+        <ul class="todo-list">
+          <% important.forEach(item => { %>
+            <li class="todo-item <%= item.completed ? 'completed-task' : '' %>">
+              <form action="/api/important/toggle/<%= item._id %>" method="POST" class="checkbox-form">
+                <input type="checkbox" onchange="this.form.submit()" <%= item.completed ? 'checked' : '' %> />
+              </form>
+
+              <form action="/api/important/update/<%= item._id %>" method="POST" class="edit-form">
+                <div class="input-date-wrapper">
+                  <input type="text" name="task" value="<%= item.task %>" />
+                  <span class="task-date"
+                    title="<%- new Date(item.createdAt).toLocaleString('en-IN', { dateStyle: 'full', timeStyle: 'short' }) %>">
+                    <%= new Date(item.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) %>
+                  </span>
+                </div>
+                <button type="submit">Update</button>
+              </form>
+
+              <form action="/api/important/delete/<%= item._id %>" method="POST" class="delete-form">
+                <button type="submit">Delete</button>
+              </form>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+
+      <div class="box bottom-box">
+        <h3>💡 Suggestions</h3>
+        <form action="/api/suggestions" method="POST" class="todo-form">
+          <input type="text" name="idea" placeholder="Add suggestion..." required />
+          <button type="submit">Add</button>
+        </form>
+
+        <ul class="todo-list">
+          <% suggestions.forEach(item => { %>
+            <li class="todo-item <%= item.completed ? 'completed-task' : '' %>">
+              <form action="/api/suggestions/toggle/<%= item._id %>" method="POST" class="checkbox-form">
+                <input type="checkbox" onchange="this.form.submit()" <%= item.completed ? 'checked' : '' %> />
+              </form>
+
+              <form action="/api/suggestions/update/<%= item._id %>" method="POST" class="edit-form">
+                <div class="input-date-wrapper">
+                  <input type="text" name="idea" value="<%= item.idea %>" />
+                  <span class="task-date"
+                    title="<%- new Date(item.createdAt).toLocaleString('en-IN', { dateStyle: 'full', timeStyle: 'short' }) %>">
+                    <%= new Date(item.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) %>
+                  </span>
+                </div>
+                <button type="submit">Update</button>
+              </form>
+
+              <form action="/api/suggestions/delete/<%= item._id %>" method="POST" class="delete-form">
+                <button type="submit">Delete</button>
+              </form>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+node_modules/
+.vscode/
+OneDrive/
+*.log
+.env
+Thumbs.db

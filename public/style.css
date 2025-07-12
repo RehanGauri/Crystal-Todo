@@ -1,0 +1,264 @@
+body {
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.wrapper {
+  display: flex;
+  height: calc(100vh - 40px);
+  gap: 15px;
+}
+
+.box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.main-todo {
+  width: 60%;
+  height: 94%;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-section {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 100%;
+  gap: 15px;
+}
+
+.top-box, .bottom-box {
+  height: 50%;
+}
+
+.todo-form {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.todo-form input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px 0 0 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.todo-form button {
+  padding: 10px 20px;
+  background: #764ba2;
+  color: white;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.todo-form button:hover {
+  background: #5a3b91;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: nowrap; /* Keep items on one line by default */
+}
+
+.checkbox-form {
+  margin: 0;
+}
+
+.checkbox-form input[type="checkbox"] {
+  accent-color: green;
+  transform: scale(1.3);
+}
+
+.edit-form {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input-date-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-date-wrapper input {
+  flex: 1;
+  padding: 8px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  color: inherit;
+  padding-right: 90px; /* space for date on right */
+}
+
+.task-date {
+  position: absolute;
+  right: 10px;
+  font-size: 11px;
+  color: #777;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80px;
+  cursor: help;
+}
+
+.edit-form button,
+.delete-form button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.edit-form button:hover {
+  background-color: #3e8e41;
+}
+
+.delete-form button {
+  background-color: #f44336;
+}
+
+.delete-form button:hover {
+  background-color: #d32f2f;
+}
+
+/* Strikethrough for completed tasks */
+.todo-item.completed-task .edit-form input {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Remove strikethrough when actively editing a completed task */
+.todo-item.completed-task .edit-form input:focus {
+  text-decoration: none;
+  color: #333;
+}
+
+/* --- Mobile Responsiveness Adjustments --- */
+@media (max-width: 768px) {
+  body {
+    padding: 10px; /* Smaller padding on body */
+  }
+
+  .wrapper {
+    flex-direction: column; /* Stack main sections vertically */
+    height: auto; /* Allow content to dictate height */
+    gap: 10px; /* Reduce gap between sections */
+  }
+
+  .box {
+    padding: 15px; /* Reduce padding inside boxes */
+  }
+
+  .main-todo,
+  .right-section {
+    width: 100%; /* Take full width */
+    height: auto; /* Allow content to dictate height */
+  }
+
+  .top-box,
+  .bottom-box {
+    height: auto; /* Allow content to dictate height */
+  }
+
+  /* Make the main todo-form (add new task) stack elements */
+  .todo-form {
+    flex-direction: column;
+    gap: 10px; /* Space between input and button */
+  }
+
+  .todo-form input {
+    border-radius: 8px; /* Apply full border-radius for stacked input */
+    width: 100%;
+  }
+
+  .todo-form button {
+    border-radius: 8px; /* Apply full border-radius for stacked button */
+    width: 100%;
+  }
+
+  /* Adjust individual todo items */
+  .todo-item {
+    flex-wrap: wrap; /* Allow elements inside todo-item to wrap to next line */
+    gap: 5px; /* Reduce gap between items within a todo */
+    align-items: flex-start; /* Align items to the top if they wrap */
+  }
+
+  /* Adjust the edit form (input + date + update button) */
+  .edit-form {
+    flex-direction: column; /* Stack input and buttons vertically */
+    flex-grow: 1; /* Allow it to take available space */
+    width: 100%; /* Important: ensure it takes full width within the .todo-item */
+    align-items: stretch; /* Make children stretch to fill width */
+    gap: 5px; /* Reduce gap */
+  }
+
+  .input-date-wrapper {
+    width: 100%; /* Make input-date-wrapper take full width */
+    padding-right: 0; /* Remove extra padding if date moved */
+  }
+
+  .input-date-wrapper input {
+    padding-right: 60px; /* Adjust padding for the date to fit */
+    width: 100%; /* Explicitly set input width to 100% */
+    box-sizing: border-box; /* Include padding in width calculation */
+  }
+
+  .task-date {
+    right: 5px; /* Adjust position relative to the input field */
+    font-size: 9px; /* Smaller font for date */
+    max-width: 50px; /* Limit date text width */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Center vertically */
+  }
+
+  .edit-form button,
+  .delete-form button {
+    width: 100%; /* Make update and delete buttons full width */
+    font-size: 13px; /* Slightly smaller font */
+    padding: 8px 10px; /* Adjust padding */
+    box-sizing: border-box; /* Include padding in width */
+  }
+}
+
+/* Optional: Very small screens (e.g., iPhone 5/SE) if further adjustments are needed */
+@media (max-width: 375px) {
+  body {
+    padding: 8px;
+  }
+  .box {
+    padding: 10px;
+  }
+  .task-date {
+    font-size: 8px;
+    max-width: 40px;
+  }
+} 
